@@ -78,7 +78,7 @@ class TextMining:
         sheet = exportwb.get_active_sheet()
         #iterate through the results and write to workbook
         wordlist = list(words.keys())
-        countlist = list(words.items())
+        countlist = list(words.values())
         for i in range(0,len(wordlist)):
             word = wordlist[i]
             count = int(countlist[i])
