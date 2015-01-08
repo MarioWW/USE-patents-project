@@ -9,7 +9,7 @@ class TextMining:
         # self.rawinput = rawinput
         self.droplist = ["", "the", "a", "an", "on", "can", "is", "not", "and", "are", "to", "in", "for", "as", "of", "it", "if", "in", "e.g", "i.e",
                          "or", "at","by", "be", "so", "with", "thus", "with", "use", "from", "such", "has", "into", "over", "via", "which", "but",
-                         "that"]
+                         "that","e.g."]
         self.wb = openpyxl.load_workbook(self.mainFileName)
         self.sheet = self.wb.get_active_sheet()
         
@@ -57,7 +57,7 @@ class TextMining:
         words = {}
         for row in data:
             #iterate through the words
-            for word in row.split(' '):
+            for word in row.value.split(" "):
                 #check if word is in droplist or is an integer, in that case skip the word
                 if word in self.droplist or '(' in word or ')' in word:
                     continue
@@ -81,14 +81,14 @@ class TextMining:
         countlist = list(words.values())
         for i in range(0,len(wordlist)):
             word = wordlist[i]
-            count = int(countlist[i])
+            #count = int(countlist[i])
             sheet.cell(column=0,row=i).value = wordlist[i]
-            sheet.cell(column=1,row=i).value = int(countlist[i])
+            sheet.cell(column=1,row=i).value = countlist[i]
 
         exportwb.save(ExportName)
 
     def Parse_Categories(self, ExportName):
-        data = self.sheet.columns[5]
+        data = self.sheet.columns[8]
         categories = {}
         for row in data:
             for entry in row.value.split(";"):
