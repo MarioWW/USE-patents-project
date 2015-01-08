@@ -109,3 +109,22 @@ class TextMining:
             exportsheet.cell(row=i,column=0).value = list(categories.keys())[i]
             exportsheet.cell(row=i,column=1).value = list(categories.values())[i]
         exportwb.save(ExportName)
+        
+    def Parse_ipc(self, ExportName):
+    	data = self.sheet.columns[10]
+    	ipc = {}
+    	for row in data:
+            for entry in row.value.split(";"):
+    	    	entry = entry.strip()
+                ipccode = entry
+    		try:
+    			ipc[ipccode] += 1
+    		except:
+    			ipc[ipccode] = 1
+    	#export the data
+        exportwb = openpyxl.Workbook()
+        exportsheet = exportwb.get_active_sheet()
+        for i in range(0, len(ipc)):
+            exportsheet.cell(row=i,column=0).value = list(ipc.keys())[i]
+            exportsheet.cell(row=i,column=1).value = list(ipc.values())[i]
+        exportwb.save(ExportName)
